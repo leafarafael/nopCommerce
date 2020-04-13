@@ -27,9 +27,9 @@ namespace Nop.Services.Customers.CacheEventConsumers
         /// <param name="entity">Entity</param>
         protected override void ClearCache(Customer entity)
         {
-            base.RemoveByPrefix(NopCustomerServicesDefaults.CustomerCustomerRolesPrefixCacheKey, false);
-            base.RemoveByPrefix(NopCustomerServicesDefaults.CustomerAddressesPrefixCacheKey, false);
-            RemoveByPrefix(NopOrderDefaults.ShoppingCartPrefixCacheKey, false);
+            RemoveByPrefix(NopCustomerServicesDefaults.CustomerCustomerRolesPrefixCacheKey);
+            RemoveByPrefix(NopCustomerServicesDefaults.CustomerAddressesPrefixCacheKey);
+            RemoveByPrefix(NopOrderDefaults.ShoppingCartPrefixCacheKey);
         }
 
         #endregion

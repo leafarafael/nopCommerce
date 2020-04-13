@@ -1,4 +1,6 @@
 ﻿using Nop.Core.Caching;
+using Nop.Core.Configuration;
+using Nop.Core.Infrastructure;
 
 namespace Nop.Services.Customers
 {
@@ -71,7 +73,7 @@ namespace Nop.Services.Customers
         /// {0} : customer identifier
         /// {1} : show hidden
         /// </remarks>
-        public static CacheKey CustomerRoleIdsCacheKey => new CacheKey("Nop.customer.customerrole.ids-{0}-{1}", CustomerCustomerRolesPrefixCacheKey);
+        public static CacheKey CustomerRoleIdsCacheKey => new CacheKey("Nop.customer.customerrole.ids-{0}-{1}", Singleton<NopConfig>.Instance.ShortTermCachingTime, CustomerCustomerRolesPrefixCacheKey);
 
         /// <summary>
         /// Gets a key for caching
@@ -80,7 +82,7 @@ namespace Nop.Services.Customers
         /// {0} : customer identifier
         /// {1} : show hidden
         /// </remarks>
-        public static CacheKey CustomerRolesCacheKey => new CacheKey("Nop.customer.customerrole-{0}-{1}", CustomerCustomerRolesPrefixCacheKey);
+        public static CacheKey CustomerRolesCacheKey => new CacheKey("Nop.customer.customerrole-{0}-{1}", Singleton<NopConfig>.Instance.ShortTermCachingTime, CustomerCustomerRolesPrefixCacheKey);
 
         /// <summary>
         /// Gets a key pattern to clear cache
@@ -93,7 +95,7 @@ namespace Nop.Services.Customers
         /// <remarks>
         /// {0} : customer identifier
         /// </remarks>
-        public static CacheKey CustomerAddressesByCustomerIdCacheKey => new CacheKey("Nop.customer.addresses.by.id-{0}", CustomerAddressesPrefixCacheKey);
+        public static CacheKey CustomerAddressesByCustomerIdCacheKey => new CacheKey("Nop.customer.addresses.by.id-{0}", Singleton<NopConfig>.Instance.ShortTermCachingTime, CustomerAddressesPrefixCacheKey);
 
         /// <summary>
         /// Gets a key for caching
@@ -102,7 +104,7 @@ namespace Nop.Services.Customers
         /// {0} : customer identifier
         /// {1} : address identifier
         /// </remarks>
-        public static CacheKey CustomerAddressCacheKeyCacheKey => new CacheKey("Nop.customer.addresses.address-{0}-{1}", CustomerAddressesPrefixCacheKey);
+        public static CacheKey CustomerAddressCacheKeyCacheKey => new CacheKey("Nop.customer.addresses.address-{0}-{1}", Singleton<NopConfig>.Instance.ShortTermCachingTime, CustomerAddressesPrefixCacheKey);
 
         /// <summary>
         /// Gets a key pattern to clear cache

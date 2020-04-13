@@ -78,7 +78,7 @@ namespace Nop.Services.Common
             if (attributeId == 0)
                 return null;
 
-            return _genericAttributeRepository.ToCachedGetById(attributeId);
+            return _genericAttributeRepository.GetById(attributeId);
         }
 
         /// <summary>

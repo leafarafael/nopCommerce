@@ -635,7 +635,7 @@ namespace Nop.Services.Discounts
             if (discountUsageHistoryId == 0)
                 return null;
 
-            return _discountUsageHistoryRepository.ToCachedGetById(discountUsageHistoryId);
+            return _discountUsageHistoryRepository.GetById(discountUsageHistoryId);
         }
 
         /// <summary>

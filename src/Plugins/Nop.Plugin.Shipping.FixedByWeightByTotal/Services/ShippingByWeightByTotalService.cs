@@ -2,6 +2,8 @@
 using System.Linq;
 using Nop.Core;
 using Nop.Core.Caching;
+using Nop.Core.Configuration;
+using Nop.Core.Infrastructure;
 using Nop.Data;
 using Nop.Plugin.Shipping.FixedByWeightByTotal.Domain;
 using Nop.Services.Caching;
@@ -18,22 +20,22 @@ namespace Nop.Plugin.Shipping.FixedByWeightByTotal.Services
         /// <summary>
         /// Key for caching all records
         /// </summary>
-        private readonly CacheKey _shippingByWeightByTotalAllKey = new CacheKey("Nop.shippingbyweightbytotal.all", SHIPPINGBYWEIGHTBYTOTAL_PATTERN_KEY);
+        private readonly CacheKey _shippingByWeightByTotalAllKey = new CacheKey("Nop.shippingbyweightbytotal.all", Singleton<NopConfig>.Instance.ShortTermCachingTime, SHIPPINGBYWEIGHTBYTOTAL_PATTERN_KEY);
         private const string SHIPPINGBYWEIGHTBYTOTAL_PATTERN_KEY = "Nop.shippingbyweightbytotal.";
 
         #endregion
 
         #region Fields
 
-        private readonly ICacheManager _cacheManager;
         private readonly IRepository<ShippingByWeightByTotalRecord> _sbwtRepository;
+        private readonly IStaticCacheManager _cacheManager;
 
         #endregion
 
         #region Ctor
 
         public ShippingByWeightByTotalService(IRepository<ShippingByWeightByTotalRecord> sbwtRepository,
-            ICacheManager cacheManager)
+            IStaticCacheManager cacheManager)
         {
             _sbwtRepository = sbwtRepository;
             _cacheManager = cacheManager;

@@ -346,7 +346,7 @@ namespace Nop.Services.Catalog
             if (productSpecificationAttributeId == 0)
                 return null;
 
-            return _productSpecificationAttributeRepository.ToCachedGetById(productSpecificationAttributeId);
+            return _productSpecificationAttributeRepository.GetById(productSpecificationAttributeId);
         }
 
         /// <summary>

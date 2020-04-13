@@ -92,9 +92,6 @@ namespace Nop.Web.Framework.Infrastructure
             builder.RegisterType<PluginService>().As<IPluginService>().InstancePerLifetimeScope();
             builder.RegisterType<OfficialFeedManager>().AsSelf().InstancePerLifetimeScope();
 
-            //cache manager
-            builder.RegisterType<PerRequestCacheManager>().As<ICacheManager>().InstancePerLifetimeScope();            
-
             //redis connection wrapper
             if (config.RedisEnabled)
             {

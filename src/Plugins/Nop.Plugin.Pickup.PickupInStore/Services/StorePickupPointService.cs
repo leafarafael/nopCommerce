@@ -2,6 +2,8 @@
 using System.Linq;
 using Nop.Core;
 using Nop.Core.Caching;
+using Nop.Core.Configuration;
+using Nop.Core.Infrastructure;
 using Nop.Data;
 using Nop.Plugin.Pickup.PickupInStore.Domain;
 using Nop.Services.Caching;
@@ -21,15 +23,15 @@ namespace Nop.Plugin.Pickup.PickupInStore.Services
         /// <remarks>
         /// {0} : current store ID
         /// </remarks>
-        private readonly CacheKey _pickupPointAllKey = new CacheKey("Nop.pickuppoint.all-{0}");
+        private readonly CacheKey _pickupPointAllKey = new CacheKey("Nop.pickuppoint.all-{0}", Singleton<NopConfig>.Instance.ShortTermCachingTime);
         private const string PICKUP_POINT_PATTERN_KEY = "Nop.pickuppoint.";
        
         #endregion
 
         #region Fields
 
-        private readonly ICacheManager _cacheManager;
         private readonly IRepository<StorePickupPoint> _storePickupPointRepository;
+        private readonly IStaticCacheManager _cacheManager;
 
         #endregion
 
@@ -40,11 +42,11 @@ namespace Nop.Plugin.Pickup.PickupInStore.Services
         /// </summary>
         /// <param name="cacheManager">Cache manager</param>
         /// <param name="storePickupPointRepository">Store pickup point repository</param>
-        public StorePickupPointService(ICacheManager cacheManager,
-            IRepository<StorePickupPoint> storePickupPointRepository)
-        {
-            _cacheManager = cacheManager;
+        public StorePickupPointService(IRepository<StorePickupPoint> storePickupPointRepository,
+            IStaticCacheManager cacheManager)
+        {            
             _storePickupPointRepository = storePickupPointRepository;
+            _cacheManager = cacheManager;
         }
 
         #endregion

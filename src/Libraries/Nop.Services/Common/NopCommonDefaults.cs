@@ -1,4 +1,6 @@
 ﻿using Nop.Core.Caching;
+using Nop.Core.Configuration;
+using Nop.Core.Infrastructure;
 
 namespace Nop.Services.Common
 {
@@ -165,7 +167,7 @@ namespace Nop.Services.Common
         /// {0} : entity ID
         /// {1} : key group
         /// </remarks>
-        public static CacheKey GenericAttributeCacheKey => new CacheKey("Nop.genericattribute.{0}-{1}");
+        public static CacheKey GenericAttributeCacheKey => new CacheKey("Nop.genericattribute.{0}-{1}", Singleton<NopConfig>.Instance.ShortTermCachingTime);
 
         #endregion
 

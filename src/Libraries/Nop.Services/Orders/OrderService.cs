@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Nop.Core;
+using Nop.Core.Configuration;
 using Nop.Core.Domain.Catalog;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Payments;
 using Nop.Core.Html;
+using Nop.Core.Infrastructure;
 using Nop.Data;
 using Nop.Services.Caching.Extensions;
 using Nop.Services.Catalog;
@@ -84,7 +86,7 @@ namespace Nop.Services.Orders
             if (orderId == 0)
                 return null;
 
-            return _orderRepository.ToCachedGetById(orderId);
+            return _orderRepository.ToCachedGetById(orderId, Singleton<NopConfig>.Instance.ShortTermCachingTime);
         }
 
         /// <summary>
@@ -464,7 +466,7 @@ namespace Nop.Services.Orders
             if (orderItemId == 0)
                 return null;
 
-            return _orderItemRepository.ToCachedGetById(orderItemId);
+            return _orderItemRepository.ToCachedGetById(orderItemId, Singleton<NopConfig>.Instance.ShortTermCachingTime);
         }
 
         /// <summary>
@@ -827,7 +829,7 @@ namespace Nop.Services.Orders
             if (orderNoteId == 0)
                 return null;
 
-            return _orderNoteRepository.ToCachedGetById(orderNoteId);
+            return _orderNoteRepository.GetById(orderNoteId);
         }
 
         /// <summary>

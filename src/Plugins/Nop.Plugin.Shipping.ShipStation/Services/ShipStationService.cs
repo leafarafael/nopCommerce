@@ -9,11 +9,13 @@ using System.Xml;
 using Newtonsoft.Json;
 using Nop.Core;
 using Nop.Core.Caching;
+using Nop.Core.Configuration;
 using Nop.Core.Domain.Common;
 using Nop.Core.Domain.Directory;
 using Nop.Core.Domain.Orders;
 using Nop.Core.Domain.Shipping;
 using Nop.Core.Domain.Tax;
+using Nop.Core.Infrastructure;
 using Nop.Services.Caching;
 using Nop.Services.Catalog;
 using Nop.Services.Common;
@@ -31,8 +33,8 @@ namespace Nop.Plugin.Shipping.ShipStation.Services
         #region constants
 
         private const string API_URL = "https://ssapi.shipstation.com/";
-        private readonly CacheKey _carriersCacheKey = new CacheKey("Nop.plugins.shipping.shipstation.carrierscachekey");
-        private readonly CacheKey _serviceCacheKey = new CacheKey("Nop.plugins.shipping.shipstation.servicecachekey.{0}");
+        private readonly CacheKey _carriersCacheKey = new CacheKey("Nop.plugins.shipping.shipstation.carrierscachekey", Singleton<NopConfig>.Instance.ShortTermCachingTime);
+        private readonly CacheKey _serviceCacheKey = new CacheKey("Nop.plugins.shipping.shipstation.servicecachekey.{0}", Singleton<NopConfig>.Instance.ShortTermCachingTime);
 
         private const string CONTENT_TYPE = "application/json";
         private const string DATE_FORMAT = "MM/dd/yyyy HH:mm";
@@ -45,8 +47,7 @@ namespace Nop.Plugin.Shipping.ShipStation.Services
 
         #region Fields
 
-        private readonly IAddressService _addressService;
-        private readonly ICacheManager _cacheManager;
+        private readonly IAddressService _addressService;       
         private readonly ICountryService _countryService;
         private readonly ICustomerService _customerService;
         private readonly ILogger _logger;
@@ -54,8 +55,9 @@ namespace Nop.Plugin.Shipping.ShipStation.Services
         private readonly IOrderService _orderService;
         private readonly IProductService _productService;
         private readonly IShipmentService _shipmentService;
-        private readonly IShippingService _shippingService;
+        private readonly IShippingService _shippingService;        
         private readonly IStateProvinceService _stateProvinceService;
+        private readonly IStaticCacheManager _cacheManager;
         private readonly IStoreContext _storeContext;
         private readonly ShipStationSettings _shipStationSettings;
 
@@ -63,8 +65,7 @@ namespace Nop.Plugin.Shipping.ShipStation.Services
 
         #region Ctor
 
-        public ShipStationService(IAddressService addressService,
-            ICacheManager cacheManager,
+        public ShipStationService(IAddressService addressService,            
             ICountryService countryService,
             ICustomerService customerService,
             ILogger logger,
@@ -74,11 +75,11 @@ namespace Nop.Plugin.Shipping.ShipStation.Services
             IShipmentService shipmentService,
             IShippingService shippingService,
             IStateProvinceService stateProvinceService,
+            IStaticCacheManager cacheManager,
             IStoreContext storeContext,
             ShipStationSettings shipStationSettings)
         {
-            _addressService = addressService;
-            _cacheManager = cacheManager;
+            _addressService = addressService;            
             _countryService = countryService;
             _customerService = customerService;
             _logger = logger;
@@ -88,6 +89,7 @@ namespace Nop.Plugin.Shipping.ShipStation.Services
             _shipmentService = shipmentService;
             _shippingService = shippingService;
             _stateProvinceService = stateProvinceService;
+            _cacheManager = cacheManager;
             _storeContext = storeContext;
             _shipStationSettings = shipStationSettings;
         }

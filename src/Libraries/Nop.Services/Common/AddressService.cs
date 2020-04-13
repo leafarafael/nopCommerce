@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nop.Core.Configuration;
 using Nop.Core.Domain.Common;
+using Nop.Core.Infrastructure;
 using Nop.Data;
 using Nop.Services.Caching.Extensions;
 using Nop.Services.Directory;
@@ -94,6 +96,7 @@ namespace Nop.Services.Common
             var query = from a in _addressRepository.Table
                         where a.StateProvinceId == stateProvinceId
                         select a;
+
             return query.Count();
         }
 
@@ -107,7 +110,7 @@ namespace Nop.Services.Common
             if (addressId == 0)
                 return null;
             
-            return _addressRepository.ToCachedGetById(addressId);
+            return _addressRepository.ToCachedGetById(addressId, Singleton<NopConfig>.Instance.ShortTermCachingTime);
         }
 
         /// <summary>

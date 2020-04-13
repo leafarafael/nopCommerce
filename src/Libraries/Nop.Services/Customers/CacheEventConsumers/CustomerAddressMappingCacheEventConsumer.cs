@@ -14,7 +14,7 @@ namespace Nop.Services.Customers.CacheEventConsumers
         /// <param name="entity">Entity</param>
         protected override void ClearCache(CustomerAddressMapping entity)
         {
-            base.RemoveByPrefix(NopCustomerServicesDefaults.CustomerAddressesPrefixCacheKey, false);
+            base.RemoveByPrefix(NopCustomerServicesDefaults.CustomerAddressesPrefixCacheKey);
         }
     }
 }
