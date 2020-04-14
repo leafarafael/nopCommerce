@@ -466,7 +466,7 @@ namespace Nop.Services.Customers
         /// <returns>A customer object</returns>
         public virtual Customer GetOrCreateBackgroundTaskUser()
         {
-            var backgroundTaskUser = GetCustomerBySystemName(Core.Domain.Customers.NopCustomerDefaults.BackgroundTaskCustomerName);
+            var backgroundTaskUser = GetCustomerBySystemName(NopCustomerDefaults.BackgroundTaskCustomerName);
 
             if(backgroundTaskUser is null)
             {
@@ -478,7 +478,7 @@ namespace Nop.Services.Customers
                     AdminComment = "Built-in system record used for background tasks.",
                     Active = true,
                     IsSystemAccount = true,
-                    SystemName = Core.Domain.Customers.NopCustomerDefaults.BackgroundTaskCustomerName,
+                    SystemName = NopCustomerDefaults.BackgroundTaskCustomerName,
                     CreatedOnUtc = DateTime.UtcNow,
                     LastActivityDateUtc = DateTime.UtcNow,
                     RegisteredInStoreId = _storeContext.CurrentStore.Id
@@ -486,7 +486,7 @@ namespace Nop.Services.Customers
                 
                 InsertCustomer(backgroundTaskUser);
 
-                var guestRole = GetCustomerRoleBySystemName(Core.Domain.Customers.NopCustomerDefaults.GuestsRoleName);
+                var guestRole = GetCustomerRoleBySystemName(NopCustomerDefaults.GuestsRoleName);
 
                 if(guestRole is null)
                     throw new NopException("'Guests' role could not be loaded");
@@ -503,7 +503,7 @@ namespace Nop.Services.Customers
         /// <returns>A customer object</returns>
         public virtual Customer GetOrCreateSearchEngineUser()
         {
-            var searchEngineUser = GetCustomerBySystemName(Core.Domain.Customers.NopCustomerDefaults.SearchEngineCustomerName);
+            var searchEngineUser = GetCustomerBySystemName(NopCustomerDefaults.SearchEngineCustomerName);
 
             if(searchEngineUser is null)
             {
@@ -515,7 +515,7 @@ namespace Nop.Services.Customers
                     AdminComment = "Built-in system guest record used for requests from search engines.",
                     Active = true,
                     IsSystemAccount = true,
-                    SystemName = Core.Domain.Customers.NopCustomerDefaults.SearchEngineCustomerName,
+                    SystemName = NopCustomerDefaults.SearchEngineCustomerName,
                     CreatedOnUtc = DateTime.UtcNow,
                     LastActivityDateUtc = DateTime.UtcNow,
                     RegisteredInStoreId = _storeContext.CurrentStore.Id
@@ -523,7 +523,7 @@ namespace Nop.Services.Customers
                 
                 InsertCustomer(searchEngineUser);
 
-                var guestRole = GetCustomerRoleBySystemName(Core.Domain.Customers.NopCustomerDefaults.GuestsRoleName);
+                var guestRole = GetCustomerRoleBySystemName(NopCustomerDefaults.GuestsRoleName);
 
                 if(guestRole is null)
                     throw new NopException("'Guests' role could not be loaded");
@@ -567,7 +567,7 @@ namespace Nop.Services.Customers
             };
 
             //add to 'Guests' role
-            var guestRole = GetCustomerRoleBySystemName(Core.Domain.Customers.NopCustomerDefaults.GuestsRoleName);
+            var guestRole = GetCustomerRoleBySystemName(NopCustomerDefaults.GuestsRoleName);
             if (guestRole == null)
                 throw new NopException("'Guests' role could not be loaded");
 
@@ -632,34 +632,34 @@ namespace Nop.Services.Customers
             //clear entered coupon codes
             if (clearCouponCodes)
             {
-                _genericAttributeService.SaveAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.DiscountCouponCodeAttribute, null);
-                _genericAttributeService.SaveAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.GiftCardCouponCodesAttribute, null);
+                _genericAttributeService.SaveAttribute<string>(customer, NopCustomerDefaults.DiscountCouponCodeAttribute, null);
+                _genericAttributeService.SaveAttribute<string>(customer, NopCustomerDefaults.GiftCardCouponCodesAttribute, null);
             }
 
             //clear checkout attributes
             if (clearCheckoutAttributes)
             {
-                _genericAttributeService.SaveAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.CheckoutAttributes, null, storeId);
+                _genericAttributeService.SaveAttribute<string>(customer, NopCustomerDefaults.CheckoutAttributes, null, storeId);
             }
 
             //clear reward points flag
             if (clearRewardPoints)
             {
-                _genericAttributeService.SaveAttribute(customer, Core.Domain.Customers.NopCustomerDefaults.UseRewardPointsDuringCheckoutAttribute, false, storeId);
+                _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.UseRewardPointsDuringCheckoutAttribute, false, storeId);
             }
 
             //clear selected shipping method
             if (clearShippingMethod)
             {
-                _genericAttributeService.SaveAttribute<ShippingOption>(customer, Core.Domain.Customers.NopCustomerDefaults.SelectedShippingOptionAttribute, null, storeId);
-                _genericAttributeService.SaveAttribute<ShippingOption>(customer, Core.Domain.Customers.NopCustomerDefaults.OfferedShippingOptionsAttribute, null, storeId);
-                _genericAttributeService.SaveAttribute<PickupPoint>(customer, Core.Domain.Customers.NopCustomerDefaults.SelectedPickupPointAttribute, null, storeId);
+                _genericAttributeService.SaveAttribute<ShippingOption>(customer, NopCustomerDefaults.SelectedShippingOptionAttribute, null, storeId);
+                _genericAttributeService.SaveAttribute<ShippingOption>(customer, NopCustomerDefaults.OfferedShippingOptionsAttribute, null, storeId);
+                _genericAttributeService.SaveAttribute<PickupPoint>(customer, NopCustomerDefaults.SelectedPickupPointAttribute, null, storeId);
             }
 
             //clear selected payment method
             if (clearPaymentMethod)
             {
-                _genericAttributeService.SaveAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.SelectedPaymentMethodAttribute, null, storeId);
+                _genericAttributeService.SaveAttribute<string>(customer, NopCustomerDefaults.SelectedPaymentMethodAttribute, null, storeId);
             }
 
             UpdateCustomer(customer);
@@ -717,8 +717,8 @@ namespace Nop.Services.Customers
             if (customer == null)
                 throw new ArgumentNullException(nameof(customer));
 
-            var firstName = _genericAttributeService.GetAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.FirstNameAttribute);
-            var lastName = _genericAttributeService.GetAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.LastNameAttribute);
+            var firstName = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.FirstNameAttribute);
+            var lastName = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.LastNameAttribute);
 
             var fullName = string.Empty;
             if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
@@ -763,7 +763,7 @@ namespace Nop.Services.Customers
                     result = GetCustomerFullName(customer);
                     break;
                 case CustomerNameFormat.ShowFirstName:
-                    result = _genericAttributeService.GetAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.FirstNameAttribute);
+                    result = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.FirstNameAttribute);
                     break;
                 default:
                     break;
@@ -785,7 +785,7 @@ namespace Nop.Services.Customers
             if (customer == null)
                 throw new ArgumentNullException(nameof(customer));
 
-            var existingCouponCodes = _genericAttributeService.GetAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.DiscountCouponCodeAttribute);
+            var existingCouponCodes = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.DiscountCouponCodeAttribute);
 
             var couponCodes = new List<string>();
             if (string.IsNullOrEmpty(existingCouponCodes))
@@ -827,7 +827,7 @@ namespace Nop.Services.Customers
             var result = string.Empty;
             try
             {
-                var existingCouponCodes = _genericAttributeService.GetAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.DiscountCouponCodeAttribute);
+                var existingCouponCodes = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.DiscountCouponCodeAttribute);
 
                 couponCode = couponCode.Trim().ToLower();
 
@@ -877,7 +877,7 @@ namespace Nop.Services.Customers
             }
 
             //apply new value
-            _genericAttributeService.SaveAttribute(customer, Core.Domain.Customers.NopCustomerDefaults.DiscountCouponCodeAttribute, result);
+            _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.DiscountCouponCodeAttribute, result);
         }
 
         /// <summary>
@@ -895,7 +895,7 @@ namespace Nop.Services.Customers
             var existingCouponCodes = ParseAppliedDiscountCouponCodes(customer);
 
             //clear them
-            _genericAttributeService.SaveAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.DiscountCouponCodeAttribute, null);
+            _genericAttributeService.SaveAttribute<string>(customer, NopCustomerDefaults.DiscountCouponCodeAttribute, null);
 
             //save again except removed one
             foreach (var existingCouponCode in existingCouponCodes)
@@ -913,7 +913,7 @@ namespace Nop.Services.Customers
             if (customer == null)
                 throw new ArgumentNullException(nameof(customer));
 
-            var existingCouponCodes = _genericAttributeService.GetAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.GiftCardCouponCodesAttribute);
+            var existingCouponCodes = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.GiftCardCouponCodesAttribute);
 
             var couponCodes = new List<string>();
             if (string.IsNullOrEmpty(existingCouponCodes))
@@ -956,7 +956,7 @@ namespace Nop.Services.Customers
             var result = string.Empty;
             try
             {
-                var existingCouponCodes = _genericAttributeService.GetAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.GiftCardCouponCodesAttribute);
+                var existingCouponCodes = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.GiftCardCouponCodesAttribute);
 
                 couponCode = couponCode.Trim().ToLower();
 
@@ -1005,7 +1005,7 @@ namespace Nop.Services.Customers
             }
 
             //apply new value
-            _genericAttributeService.SaveAttribute(customer, Core.Domain.Customers.NopCustomerDefaults.GiftCardCouponCodesAttribute, result);
+            _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.GiftCardCouponCodesAttribute, result);
         }
 
         /// <summary>
@@ -1023,7 +1023,7 @@ namespace Nop.Services.Customers
             var existingCouponCodes = ParseAppliedGiftCardCouponCodes(customer);
 
             //clear them
-            _genericAttributeService.SaveAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.GiftCardCouponCodesAttribute, null);
+            _genericAttributeService.SaveAttribute<string>(customer, NopCustomerDefaults.GiftCardCouponCodesAttribute, null);
 
             //save again except removed one
             foreach (var existingCouponCode in existingCouponCodes)
@@ -1232,7 +1232,7 @@ namespace Nop.Services.Customers
         /// <returns>Result</returns>
         public virtual bool IsAdmin(Customer customer, bool onlyActiveCustomerRoles = true)
         {
-            return IsInCustomerRole(customer, Core.Domain.Customers.NopCustomerDefaults.AdministratorsRoleName, onlyActiveCustomerRoles);
+            return IsInCustomerRole(customer, NopCustomerDefaults.AdministratorsRoleName, onlyActiveCustomerRoles);
         }
 
         /// <summary>
@@ -1243,7 +1243,7 @@ namespace Nop.Services.Customers
         /// <returns>Result</returns>
         public virtual bool IsForumModerator(Customer customer, bool onlyActiveCustomerRoles = true)
         {
-            return IsInCustomerRole(customer, Core.Domain.Customers.NopCustomerDefaults.ForumModeratorsRoleName, onlyActiveCustomerRoles);
+            return IsInCustomerRole(customer, NopCustomerDefaults.ForumModeratorsRoleName, onlyActiveCustomerRoles);
         }
 
         /// <summary>
@@ -1254,7 +1254,7 @@ namespace Nop.Services.Customers
         /// <returns>Result</returns>
         public virtual bool IsRegistered(Customer customer, bool onlyActiveCustomerRoles = true)
         {
-            return IsInCustomerRole(customer, Core.Domain.Customers.NopCustomerDefaults.RegisteredRoleName, onlyActiveCustomerRoles);
+            return IsInCustomerRole(customer, NopCustomerDefaults.RegisteredRoleName, onlyActiveCustomerRoles);
         }
 
         /// <summary>
@@ -1265,7 +1265,7 @@ namespace Nop.Services.Customers
         /// <returns>Result</returns>
         public virtual bool IsGuest(Customer customer, bool onlyActiveCustomerRoles = true)
         {
-            return IsInCustomerRole(customer, Core.Domain.Customers.NopCustomerDefaults.GuestsRoleName, onlyActiveCustomerRoles);
+            return IsInCustomerRole(customer, NopCustomerDefaults.GuestsRoleName, onlyActiveCustomerRoles);
         }
 
         /// <summary>
@@ -1276,7 +1276,7 @@ namespace Nop.Services.Customers
         /// <returns>Result</returns>
         public virtual bool IsVendor(Customer customer, bool onlyActiveCustomerRoles = true)
         {
-            return IsInCustomerRole(customer, Core.Domain.Customers.NopCustomerDefaults.VendorsRoleName, onlyActiveCustomerRoles);
+            return IsInCustomerRole(customer, NopCustomerDefaults.VendorsRoleName, onlyActiveCustomerRoles);
         }
 
         /// <summary>
@@ -1380,7 +1380,7 @@ namespace Nop.Services.Customers
             if (customer == null)
                 throw new ArgumentNullException(nameof(customer));
 
-            var cPrt = _genericAttributeService.GetAttribute<string>(customer, Core.Domain.Customers.NopCustomerDefaults.PasswordRecoveryTokenAttribute);
+            var cPrt = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.PasswordRecoveryTokenAttribute);
             if (string.IsNullOrEmpty(cPrt))
                 return false;
 
@@ -1403,7 +1403,7 @@ namespace Nop.Services.Customers
             if (_customerSettings.PasswordRecoveryLinkDaysValid == 0)
                 return false;
 
-            var geneatedDate = _genericAttributeService.GetAttribute<DateTime?>(customer, Core.Domain.Customers.NopCustomerDefaults.PasswordRecoveryTokenDateGeneratedAttribute);
+            var geneatedDate = _genericAttributeService.GetAttribute<DateTime?>(customer, NopCustomerDefaults.PasswordRecoveryTokenDateGeneratedAttribute);
             if (!geneatedDate.HasValue)
                 return false;
 

@@ -1399,7 +1399,7 @@ namespace Nop.Web.Factories
                 if (_customerSettings.AllowCustomersToUploadAvatars)
                 {
                     productReviewModel.CustomerAvatarUrl = _pictureService.GetPictureUrl(
-                        _genericAttributeService.GetAttribute<int>(customer, Core.Domain.Customers.NopCustomerDefaults.AvatarPictureIdAttribute),
+                        _genericAttributeService.GetAttribute<int>(customer, NopCustomerDefaults.AvatarPictureIdAttribute),
                         _mediaSettings.AvatarPictureSize, _customerSettings.DefaultAvatarEnabled, defaultPictureType: PictureType.Avatar);
                 }
 

@@ -12,6 +12,11 @@ namespace Nop.Services.Vendors
         /// </summary>
         public static string VendorAttributes => "VendorAttributes";
 
+        /// <summary>
+        /// Gets default prefix for vendor
+        /// </summary>
+        public static string VendorAttributePrefix => "vendor_attribute_";
+
         #region Caching defaults
 
         /// <summary>

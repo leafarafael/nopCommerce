@@ -22,6 +22,11 @@ namespace Nop.Services.Customers
         /// </summary>
         public static string DefaultHashedPasswordFormat => "SHA512";
 
+        /// <summary>
+        /// Gets default prefix for customer
+        /// </summary>
+        public static string CustomerAttributePrefix => "customer_attribute_";
+
         #region Caching defaults
 
         #region Customer attributes
@@ -124,6 +129,5 @@ namespace Nop.Services.Customers
         #endregion
 
         #endregion
-
     }
 }
